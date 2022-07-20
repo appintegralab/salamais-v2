@@ -1,34 +1,22 @@
 import { createWebHistory, createRouter } from 'vue-router';
-
-import Formacoes from "./components/home/home.vue"
-import Inscricoes from "./components/minhas-formacoes/minhas-formacoes.vue"
-import Concluidas from "./components/concluidas/concluidas.vue"
-import Formacao from "./components/formacao/formacao.vue"
-import Profile from "./components/profile/profile.vue"
-import AdminFormacoes from "./components/admin/formacoes/formacoes.vue"
-import AdminUsuarios from "./components/admin/users/users.vue"
-import AdminInscricoes from "./components/admin/inscricoes/inscricoes.vue"
-import MailTest from "./components/admin/mail-test.vue"
-import Facilitadores from "./components/admin/facilitadores/facilitadores.vue"
-import Relatorios from "./components/admin/relatorios/relatorios.vue"
-import Facilitador from "./components/facilitador/facilitador.vue"
-import Sala from "./components/sala/sala.vue"
+import {defineAsyncComponent} from "vue";
 
 const routes = [
-    { path: '/', component: Formacoes },
-    { path: '/formacoes', component: Formacoes },
-    { path: '/inscricoes', component: Inscricoes },
-    { path: '/concluidas', component: Concluidas },
-    { path: '/formacao/:id', component: Formacao },
-    { path: '/profile/:id', component: Profile },
-    { path: '/admin-formacoes', component: AdminFormacoes },
-    { path: '/admin-usuarios', component: AdminUsuarios },
-    { path: '/admin-inscricoes', component: AdminInscricoes },
-    { path: '/admin-mail-test', component: MailTest },
-    { path: '/admin-facilitadores', component: Facilitadores },
-    { path: '/admin-relatorios', component: Relatorios },
-    { path: '/facilitador', component: Facilitador },
-    { path: '/sala/:id', component: Sala },
+    { path: '/', component: () => import("@/components/home/home.vue") },
+    { path: '/formacoes', component: () => import("@/components/formacao/formacao.vue") },
+    { path: '/inscricoes', component: () => import("@/components//minhas-formacoes/minhas-formacoes.vue") },
+    { path: '/concluidas', component: () => import("@/components/concluidas/concluidas.vue") },
+    { path: '/formacao/:id', component: () => import("@/components/formacao/formacao.vue") },
+    { path: '/profile/:id', component: () => import("@/components/profile/profile.vue") },
+    { path: '/admin-formacoes', component: () => import("@/components/admin/formacoes/formacoes.vue") },
+    { path: '/admin-usuarios', component: () => import("@/components/admin/users/users.vue") },
+    { path: '/admin-inscricoes', component: () => import("@/components/admin/inscricoes/inscricoes.vue") },
+    { path: '/admin-mail-test', component: () => import("@/components/admin/admin/mail-test.vue") },
+    { path: '/admin-facilitadores', component: () => import("@/components/facilitadores/facilitadores.vue") },
+    { path: '/admin-relatorios', component: () => import("@/components/admin/relatorios/relatorios.vue") },
+    { path: '/facilitador', component: () => import("@/components/facilitador/facilitador.vue") },
+    { path: '/sala/:id', component: () => import("@/components/sala/sala.vue") },
+    { path: '/admin-tmpl-certificados', component: () => import("@/components/admin/tmpl-certificados/tmpl-certificados.vue") },
 ]
 
 const router = createRouter({

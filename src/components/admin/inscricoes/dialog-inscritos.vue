@@ -220,17 +220,17 @@ export default {
             //let userModel = cb("salamais").coll("usuarios")
             for (let i in this.sala.inscricoes) {
                 let userID = this.sala.inscricoes[i]
-                console.log(userID);
+                //console.log(userID);
                 get(ref(rdb,"/salamais/usuarios/"+userID)).then((snap) => {
                     let data = snap.val()
-                    console.log(`user: ${userID}`, data);
+                    //console.log(`user: ${userID}`, data);
                     self.inscritos.push(data)
                 })
             }
         },
 
         goProfile(userID) {
-            console.log(userID);
+            //console.log(userID);
             let route = this.$router.resolve({ path: '/profile/' + userID });
             // let route = this.$router.resolve('/link/to/page'); // This also works.
             window.open(route.href, '_blank');

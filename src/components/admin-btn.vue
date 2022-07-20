@@ -6,69 +6,35 @@
             </q-avatar>
             <q-tooltip :delay="1200">Administração do Sala Mais</q-tooltip>
             <q-menu v-model="menuShow">
-                <div class="min-w-[260px] p-2">
+                <div class="min-w-[300px] p-2">
                     <div class="flex items-center">
-                        <div class="mr-2 p-1">
-                            <q-avatar size="34px" class="bg-gray-200">
+                        <div class="mr-2 p-4">
+                            <q-avatar size="60px" class="bg-gray-200">
                                 <img class="" src="@/assets/salamais-icon.png">
                             </q-avatar>
                         </div>
-                        <div class="flex-1 ellipsis">
+                        <div class="flex-1 ellipsis pr-2">
                             <div class="finter text-[8pt] fw-700">
                                 Administração do Sala Mais
                             </div>
                             <div class="border-t my-2"></div>
-                            <div @click="menuShow=false; $router.push({path:'/admin-formacoes'})" class="flex items-center p-1 hover:bg-gray-200 cursor-pointer">
-                                <div class="h-[20px] fs-12pt">
-                                    <span class="iconify" data-icon="ic:twotone-edit-calendar" data-inline="false"></span>
+
+                            <div v-for="(item, index) in menuItems" :key="index">
+                                <div v-if="item.separator == undefined" @click="menuShow = false; $router.push(item.link)"
+                                    class="flex items-center p-1 hover:bg-gray-200 cursor-pointer">
+                                    <div class="h-[20px] fs-12pt">
+                                        <span class="iconify" :data-icon="item.icon"
+                                            data-inline="false"></span>
+                                    </div>
+                                    <div class="text-xs ml-1 flex-1 ellipsis">
+                                        {{item.label}}
+                                    </div>
                                 </div>
-                                <div class="text-xs ml-1 flex-1 ellipsis">
-                                    Formações
-                                </div>
-                            </div>
-                            <div @click="menuShow=false; $router.push({path:'/admin-inscricoes'})" class="flex items-center p-1 hover:bg-gray-200 cursor-pointer">
-                                <div class="h-[20px] fs-12pt">
-                                    <span class="iconify" data-icon="wpf:renew-subscription" data-inline="false"></span>
-                                </div>
-                                <div class="text-xs ml-1 flex-1 ellipsis">
-                                    Controle de Inscrições
-                                </div>
-                            </div>
-                            <div @click="menuShow=false; $router.push({path:'/admin-facilitadores'})" class="flex items-center p-1 hover:bg-gray-200 cursor-pointer">
-                                <div class="h-[20px] fs-12pt">
-                                    <span class="iconify" data-icon="mdi:school" data-inline="false"></span>
-                                </div>
-                                <div class="text-xs ml-1 flex-1 ellipsis">
-                                    Facilitadores
+                                <div v-if="item.separator == true">
+                                    <div class="border-t my-1"></div>
                                 </div>
                             </div>
-                            <div class="border-t my-1"></div>
-                            <div @click="menuShow=false; $router.push({path:'/admin-relatorios'})" class="flex items-center p-1 hover:bg-gray-200 cursor-pointer">
-                                <div class="h-[20px] fs-12pt">
-                                    <span class="iconify" data-icon="clarity:export-outline-badged" data-inline="false"></span>
-                                </div>
-                                <div class="text-xs ml-1 flex-1 ellipsis">
-                                    Relatórios
-                                </div>
-                            </div>
-                            <div class="border-t my-1"></div>
-                            <div @click="menuShow=false; $router.push({path:'/admin-usuarios'})" class="flex items-center p-1 hover:bg-gray-200 cursor-pointer">
-                                <div class="h-[20px] fs-12pt">
-                                    <span class="iconify" data-icon="ic:people" data-inline="false"></span>
-                                </div>
-                                <div class="text-xs ml-1 flex-1 ellipsis">
-                                    Usuários
-                                </div>
-                            </div>
-                            <div class="border-t my-1"></div>
-                            <div @click="menuShow=false; $router.push({path:'/admin-mail-test'})" class="flex items-center p-1 hover:bg-gray-200 cursor-pointer">
-                                <div class="h-[20px] fs-12pt">
-                                    <span class="iconify" data-icon="ic:mail" data-inline="false"></span>
-                                </div>
-                                <div class="text-xs ml-1 flex-1 ellipsis">
-                                    Testar envio email
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -85,7 +51,18 @@ export default {
         return {
             menuShow: false,
             userStore: userStore(),
-            enabled: false
+            enabled: false,
+            menuItems: [
+                { label: "Formações", icon: "ic:twotone-edit-calendar", link: { path: '/admin-formacoes' } },
+                { label: "Controle de Inscrições", icon: "wpf:renew-subscription", link: { path: '/admin-inscricoes' } },
+                { label: "Facilitadores", icon: "mdi:school", link: { path: '/admin-facilitadores' } },
+                { label: "Modelos Certificados", icon: "mdi:file-certificate-outline", link: { path: '/admin-tmpl-certificados' } },
+                { separator: true  },
+                { label: "Relatórios", icon: "clarity:export-outline-badged", link: { path: '/admin-relatorios' } },
+                { label: "Usuários", icon: "ic:people", link: { path: '/admin-usuarios' } },
+                { separator: true  },
+                { label: "Testar envio email", icon: "ic:mail", link: { path: '/admin-mail-test' } },
+            ]
         }
     },
     computed: {
@@ -107,8 +84,8 @@ export default {
         checkEnabled() {
             let cpf = this.userStore.user.cpf
             //console.log(cpf);
-            let lista = [ "18374109840", "28854077860", "99271176804", "12345678900", "36126741889"  ]
-            if(lista.lastIndexOf(cpf) != -1) {
+            let lista = ["18374109840", "28854077860", "99271176804", "12345678900", "36126741889"]
+            if (lista.lastIndexOf(cpf) != -1) {
                 this.enabled = true
             } else {
                 this.enabled = false

@@ -1,5 +1,10 @@
 <template>
     <div>
+        <div class="" v-if="userStore.user.cpf == '18374109840'">
+            <q-btn size="xs" @click="verCertificado">
+                verCertificado
+            </q-btn>
+        </div>
         <div class="fw-600 text-[10pt]" v-if="status != 'liberada'">
             <div class="flex items-center justify-between border rounded p-1 text-[10pt] fw-300 bg-gray-200">
                 <div>
@@ -47,6 +52,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </template>
