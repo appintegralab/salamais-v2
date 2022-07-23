@@ -23,10 +23,10 @@
                                     <span class="iconify text-[14pt]" data-icon="mi:search"></span>
                                 </div>
                             </div>
-                            <div v-if="false">
-                                <q-btn size="xs" class="px-2" @click="$refs.dialogformacaoref.show()">
+                            <div>
+                                <q-btn size="xs" class="px-2" @click="$refs.dialogModelEditorref.show()">
                                     <span class="iconify text-[12pt] mr-1" data-icon="ion:add-circle-outline" />
-                                    adicionar formação
+                                    novo modelo
                                 </q-btn>
                             </div>
                         </div>
@@ -36,11 +36,21 @@
                     <q-tr :props="props">
                         <q-td>
                             <div class="flex items-center">
-                                <q-avatar size="26px">
-                                    <q-img class="w-[26px] h-[26px]" :src="props.row.urlFoto" />
+                                <q-avatar size="48px">
+                                    <span class="iconify" data-icon="mdi:file-certificate-outline"
+                                        data-inline="false"></span>
                                 </q-avatar>
-                                <div class="ml-1">
+                                <div class="flex-1 ml-1">
                                     <span class="text-[7pt]">{{ props.row.nome }}</span>
+                                    <div>
+                                        oi
+                                    </div>
+                                </div>
+                                <div>
+                                    <q-btn @click="$refs.dialogformacaoref.show(props.row)" round size="xs"
+                                        class="bg-gray-200">
+                                        <span class="iconify text-[10pt]" data-icon="mi:edit"></span>
+                                    </q-btn>
                                 </div>
                             </div>
                         </q-td>
@@ -48,6 +58,7 @@
                 </template>
             </q-table>
         </div>
+        <dialogModelEditor ref="dialogModelEditorref"/>
     </div>
 </template>
 
@@ -58,14 +69,15 @@ import moment from 'moment/min/moment-with-locales'
 import 'moment/locale/pt-br.js'
 import { userStore } from "../../../stores/user-store"
 import notif from "../../../notif.js"
+import dialogModelEditor from "./dialog-model-editor.vue"
 
 export default {
+    components: { dialogModelEditor },
     data() {
         return {
             filter: "",
             columns: [
                 { label: 'Facilitadores', field: "nome", align: 'left', sortable: true },
-                { label: '', sortable: false },
             ],
             rows: [],
             removeDialog: []
